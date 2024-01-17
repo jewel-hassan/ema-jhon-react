@@ -4,13 +4,15 @@ import logo from "../../images/Logo.svg";
 
 const Header = () => {
     return (
-        <div className="header">
+        <nav className="header">
            <img src={logo} alt="" srcset="" />
-           <a href="/shop">Shop</a>
+          <div>
+          <a href="/shop">Shop</a>
            <a href="/order">Order</a>
            <a href="/inverntory">Inverntory</a>
            <a href="/login">Login</a>
-        </div>
+          </div>
+        </nav>
     );
 };
 

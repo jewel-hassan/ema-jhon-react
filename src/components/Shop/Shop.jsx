@@ -26,15 +26,24 @@ const Shop = () => {
         const quantity = storedCart[id];
         addedProduct.quantity = quantity;
         savedCart.push(addedProduct);
-
       }
       console.log("added product", addedProduct);
     }
     setCart(savedCart);
   }, [products]);
 
-  const addtoCarthandler = (product) => {
-    const newCart = [...cart, product];
+  const handleAddToCart = (product) => {
+    let newCart = [];
+    const exists = cart.find((pd) => pd.id === product.id);
+    if (!exists) {
+      product.quantity = 1;
+      newCart = [...cart, product];
+    } else {
+      exists.quantity = exists.quantity + 1;
+      const remaining = cart.filter((pd) => pd.id !== product.id);
+      newCart = [...remaining, exists];
+    }
+
     setCart(newCart);
     addToDb(product.id);
   };
@@ -45,7 +54,7 @@ const Shop = () => {
         {products.map((product) => {
           return (
             <div key={product.id}>
-              <Product product={product} handlerCart={addtoCarthandler} />
+              <Product product={product} handlerCart={handleAddToCart} />
             </div>
           );
         })}
